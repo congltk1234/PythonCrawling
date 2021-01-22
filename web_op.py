@@ -2,16 +2,21 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import urllib.request, urllib.error, urllib.parse
 
 #Các hàm cần thiết:
-
 #Hàm đọc nội dung trang web:
+def save_content(url):
+    response = urllib.request.urlopen(url)
+    result = response.read()
+    return result
+
+
 #Kết quả trả về là 1 văn bản dạng chuỗi .txt
-def read_content(url):
+def parsing(url):
     # Gửi yêu cầu truy cập url
     try:
         raw_page = requests.get(url)
-        print('Đã nhận link.\n--------------------------')
     except HTTPError as e:
         print("The server returned an HTTP error")
     except URLError as e:
@@ -26,6 +31,11 @@ def read_content(url):
 #Lấy các đường link web trong nội dung đọc về:
 #Kết quả trả về là 1 list chứa các link
 def catchlink(page_content):
+    """
+    Lấy các đường link từ nội dung trang web
+    :param page_content:
+    :return: List (chứa các link)
+    """
     a_tags = page_content.find_all("a")
     result = []
     for item in a_tags:
@@ -55,5 +65,11 @@ def check_link(item):
 #Hàm chỉnh sửa đường link nếu đường link không đầy đủ:
 #Kết quả trả về là 1 đường link đầy đủ.
 def editlink(domain,item):
+    """
+    Hàm chỉnh sửa đường link bị thiếu tên miền
+    :param domain: Tên miền
+    :param item: Đường link bị thiếu
+    :return:
+    """
     item = domain + item
-    return item
+    return str(item)

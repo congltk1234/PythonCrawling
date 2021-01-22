@@ -1,1 +1,1 @@
-# PythonScrapy
+# Đồ án 1: Web Crawling (Web Scraping) bằng ngôn ngữ Python

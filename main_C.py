@@ -1,13 +1,14 @@
 # Các thư viện cần thiết
-import save
+import tek
 import web_op
 import time
+import os
 
 
 def start():
     # Nhóm các biến toàn cục cung cấp thông số cho chương trình:
     download_set = url_set = set()   # Tạo tập hợp rỗng
-    save.creat_dir()  # Tạo thư mục lưu các file html
+    folder = tek.creat_dir()  # Tạo thư mục lưu các file html
     domain = web_op.input_url()  # Nhập url xuất phát
     url_set.add(domain) # Thêm url xuất phát vào url_set
     max_page = web_op.input_max()  # Nhập số lượng trang web cần tải
@@ -31,12 +32,13 @@ def start():
     for (index, url) in enumerate(download_list, 1):
         print(f'{index} : {url}')  # Hiển thị số thứ tự và link đang tải
         data = web_op.parsing(url)  # Phân tích source code của url
-        save.saveHTML(domain, url, index, data)  # Tải source code về rồi lưu thành file .html
+        tek.saveHTML(domain, url, index, data, folder)  # Tải source code về rồi lưu thành file .html
     end = time.time()  # Đánh dấu mốc thời gian kết thúc chương trình
     print('-'*50)
     print(f"Runtime of the program is {end - check}")  # Hiển thị thời gian chạy chương trình
     # Lưu những đường link đã tìm được vào file .txt
+    os.chdir(folder)
     for (index, url) in enumerate(download_set, 1):
-        save.write_txt(index,url)
+        tek.write_txt(index,url)
 if __name__ == '__main__':
     start()

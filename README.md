@@ -1,1 +1,2 @@
-# Đồ án 1: Web Crawling (Web Scraping) bằng ngôn ngữ Python
+# Đồ án 1: Web Crawling bằng ngôn ngữ Python
+Sử dụng thư viện BeautifulSoup
